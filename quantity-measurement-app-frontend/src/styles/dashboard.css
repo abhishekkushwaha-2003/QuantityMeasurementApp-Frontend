@@ -1,3 +1,10 @@
+html, body, #root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -18,6 +25,10 @@ header {
   justify-content: space-between;
   padding: 0 28px;
   height: 52px;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 header h1 {
@@ -195,8 +206,10 @@ header button:hover {
 .arrow {
   font-size: 22px;
   color: #3b5bdb;
-  padding-top: 30px;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding-top: 45px;
 }
 
 .result-box {
@@ -250,7 +263,7 @@ header button:hover {
   display: flex;
   align-items: center;
   flex-shrink: 0;
-  margin-top: 24px;
+  padding-top: 45px;
 }
 
 .op-box select {
@@ -332,8 +345,8 @@ header button:hover {
   }
 
   .op-box {
-    margin-top: 0;
-    align-self: flex-start;
+    padding-top: 0;
+    align-self: center;
   }
 
   .result-text {
@@ -358,4 +371,48 @@ header button:hover {
   .big-input {
     font-size: 24px;
   }
+}
+
+.btn-get-result {
+  padding: 11px 24px;
+  background: #3b5bdb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  margin-bottom: 14px;
+  transition: background 0.2s;
+}
+
+.btn-get-result:hover {
+  background: #2f4ac5;
+}
+
+.arith-bottom-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.arith-bottom-row .btn-get-result {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.arith-bottom-row .result-unit-select {
+  width: 140px;
+  flex-shrink: 0;
+}
+
+.panel .btn-get-result {
+  width: 100%;
+}
+
+.arith-bottom-row .btn-get-result {
+  width: auto;
+  flex: 1;
 }
