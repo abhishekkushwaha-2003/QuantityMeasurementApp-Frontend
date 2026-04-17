@@ -1,4 +1,4 @@
-var BASE_URL = 'http://localhost:8080';
+const BASE_URL = process.env.REACT_APP_API_URL || '';
 
 // ── Login ────────────────────────────────────────────────────────
 export async function loginApi(email: string, password: string) {
@@ -10,13 +10,21 @@ export async function loginApi(email: string, password: string) {
     body: JSON.stringify({ email: email, password: password })
   });
 
-  if (!response.ok) {
-    var error = await response.json();
-    throw new Error(error.message || 'Login failed');
+  var text = await response.text();
+  let data: any = {};
+
+  try {
+    data = text ? JSON.parse(text) : {};
+  } catch {
+    throw new Error(text || 'Invalid server response');
   }
 
-  var data = await response.json();
-  return data; // { token, message }
+  if (!response.ok) {
+    throw new Error(data.message || data.errorMessage || text || 'Login failed');
+  }
+
+  localStorage.setItem('qm_token', data.token);
+  return data;
 }
 
 // ── Register ─────────────────────────────────────────────────────
@@ -34,13 +42,25 @@ export async function registerApi(name: string, email: string, password: string,
     })
   });
 
-  if (!response.ok) {
-    var error = await response.json();
-    throw new Error(error.errorMessage || error.message || 'Request failed');
+  var text = await response.text();
+  let data: any = {};
+
+  try {
+    data = text ? JSON.parse(text) : {};
+  } catch {
+    data = {};
   }
 
-  var data = await response.text();
-  return data; // "User registered successfully"
+  if (!response.ok) {
+    throw new Error(
+      data.errorMessage ||
+      data.message ||
+      text ||
+      `Request failed with status ${response.status}`
+    );
+  }
+
+  return data;
 }
 
 // ── Quantity APIs ────────────────────────────────────────────────
@@ -109,7 +129,6 @@ async function quantityRequest(endpoint: string, payload: any) {
   }
 
   if (!response.ok) {
-  var text = await response.text();
   try {
     var error = JSON.parse(text);
     throw new Error(error.errorMessage || error.message || 'Request failed');

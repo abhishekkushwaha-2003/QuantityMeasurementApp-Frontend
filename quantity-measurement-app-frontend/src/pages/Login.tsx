@@ -179,7 +179,16 @@ function Login() {
               </div>
 
               <button className="btn-submit" onClick={doLogin}>Login</button>
-              <p className="switch-link">Don't have an account? <a onClick={() => setActiveTab('signup')}>Sign Up</a></p>
+              <p className="switch-link">
+                 Don't have an account?{" "}
+                <button
+                  type="button"
+                  className="auth-link-btn"
+                  onClick={() => setActiveTab('signup')}
+                >
+                  Sign Up
+                </button>
+              </p>
 
             </div>
           )}
@@ -220,7 +229,16 @@ function Login() {
               </div>
 
               <button className="btn-submit" onClick={doSignup}>Signup</button>
-              <p className="switch-link">Already have an account? <a onClick={() => setActiveTab('login')}>Login</a></p>
+              <p className="switch-link">
+                Already have an account?{" "}
+                <button
+                  type="button"
+                  className="auth-link-btn"
+                  onClick={() => setActiveTab('login')}
+                >
+                  Login
+                </button>
+              </p>
 
             </div>
           )}
